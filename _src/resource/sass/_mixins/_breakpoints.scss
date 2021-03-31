@@ -12,7 +12,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-@mixin  center {
+
+@mixin center {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,6 +24,7 @@
         @content;
     }
 }
+
 // MEDIA QUERY MANAGER
 
 /*

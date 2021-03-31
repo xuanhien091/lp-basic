@@ -1,4 +1,7 @@
+@import './_base/grid';
 @import './_base/reset';
-@import './_variables/breakpoints';
-@import './_variables/colors';
-@import './_base/mixins';
+@import './effect.scss';
+@import './variable.scss';
+@import './mixins.scss';
+@import './layout.scss';
+@import './custom.scss';
