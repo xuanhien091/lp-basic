@@ -1,41 +1,68 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserJSPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
+const FileIncludeWebpackPlugin = require('file-include-webpack-plugin')
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const outputDir = path.resolve(__dirname, 'dist/');
 
 module.exports = {
-    optimization: {
-        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
-    },
-    entry: {
-        newfile: [
-            './src/index.js',
-            './src/my-test.js'
-        ]
+    mode: process.env.NODE_ENV || 'development',
+    devtool: 'inline-source-map',
+    entry: [path.resolve(__dirname, '_src/resource/js/main.js'), path.resolve(__dirname, '_src/resource/sass/styles.scss')],
+    output: {
+        path: outputDir,
+        filename: 'js/[name].js'
     },
     plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            title: 'Output Management'
+        new BrowserSyncPlugin({
+            host: 'localhost',
+            port: 8080,
+            server: { baseDir: ['./dist'] }
+          }),
+        new CopyPlugin({
+            patterns: [
+                { from: path.resolve(__dirname, '_src/app'), to: path.resolve(__dirname, 'dist/src') },
+            ],
         }),
-        new MiniCssExtractPlugin({
-            filename: 'style.min.css'
-        })
+        new FileIncludeWebpackPlugin(
+            {
+                source: './_modules/pages', // relative path to your templates
+                replace: [{
+                    regex: /\[\[FILE_VERSION]]/, // additional things to replace
+                    to: 'v=1.0.0',
+                }],
+                destination: './',
+            },
+        ),
     ],
-    output: {
-        filename: 'main.min.js',
-        path: path.resolve(__dirname, 'public/src/js/')
-    },
-    devtool: 'inline-source-map',
+
     module: {
         rules: [{
-            test: /\.css$/,
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
+        }],
+        rules: [{
+            test: /\.scss$/,
             use: [
-                MiniCssExtractPlugin.loader,
-                // 'style-loader',
-                'css-loader'
+                {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'css/[name].css'
+                    }
+                },
+                {
+                    loader: 'extract-loader'
+                },
+                {
+                    loader: 'css-loader?-url'
+                },
+                {
+                    loader: 'postcss-loader'
+                },
+                {
+                    loader: 'sass-loader'
+                }
+
             ]
         }]
     }
