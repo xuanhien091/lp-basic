@@ -1,88 +1,164 @@
-@mixin clearfix {
-    &::after {
-        content: "";
-        display: table;
-        clear: both;
+// @mixin clearfix {
+//     &::after {
+//         content: "";
+//         display: table;
+//         clear: both;
+//     }
+// }
+// @mixin absCenter {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+// }
+// @mixin center {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+// @mixin rwd($screen) {
+//     @media (max-width: $screen+'px') {
+//         @content;
+//     }
+// }
+// // MEDIA QUERY MANAGER
+// /*
+// 0 - 600px:      Phone
+// 600 - 900px:    Tablet portrait
+// 900 - 1200px:   Tablet landscape
+// [1200 - 1800] is where our normal styles apply
+// 1800px + :      Big desktop
+// $breakpoint arguement choices:
+// - phone
+// - tab-port
+// - tab-land
+// - big-desktop
+// ORDER: Base + typography > general layout + grid > page layout > components
+// 1em = 16px
+// */
+// @mixin response($breakpoint) {
+//     @if $breakpoint==phone {
+//         @media only screen and (max-width: 37.5em) {
+//             @content
+//         }
+//         ; //600px
+//     }
+//     @if $breakpoint==tab-port {
+//         @media only screen and (max-width: 56.25em) {
+//             @content
+//         }
+//         ; //900px
+//     }
+//     @if $breakpoint==tab-land {
+//         @media only screen and (max-width: 75em) {
+//             @content
+//         }
+//         ; //1200px
+//     }
+//     @if $breakpoint==big-desktop {
+//         @media only screen and (min-width: 112.5em) {
+//             @content
+//         }
+//         ; //1800
+//     }
+// }
+// @mixin container($container-width) {
+//     max-width: $container-width;
+//     @include response(phone) {
+//         max-width: 90%;
+//     }
+//     @include response(tab-port) {
+//         max-width: 90%;
+//     }
+//     margin: 0 auto;
+//     &:not(:last-child) {
+//         margin-bottom: $gutter-vertical;
+//     }
+//     @include clearfix;
+// }
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+    $n: index($breakpoint-names, $name);
+    @if not $n {
+        @error "breakpoint `#{$name}` not found in `#{$breakpoints}`";
     }
+    @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
 }
 
-@mixin absCenter {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+    $min: map-get($breakpoints, $name);
+    @return if($min !=0, $min, null);
 }
 
-@mixin center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+    $max: map-get($breakpoints, $name);
+    @return if($max and $max > 0, $max - .02, null);
 }
 
-@mixin rwd($screen) {
-    @media (max-width: $screen+'px') {
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+    @return if(breakpoint-min($name, $breakpoints)==null, "", "-#{$name}");
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+    $min: breakpoint-min($name, $breakpoints);
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    }
+    @else {
         @content;
     }
 }
 
-// MEDIA QUERY MANAGER
-
-/*
-0 - 600px:      Phone
-600 - 900px:    Tablet portrait
-900 - 1200px:   Tablet landscape
-[1200 - 1800] is where our normal styles apply
-1800px + :      Big desktop
-
-$breakpoint arguement choices:
-- phone
-- tab-port
-- tab-land
-- big-desktop
-
-ORDER: Base + typography > general layout + grid > page layout > components
-
-1em = 16px
-*/
-
-@mixin response($breakpoint) {
-    @if $breakpoint==phone {
-        @media only screen and (max-width: 37.5em) {
-            @content
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+    $max: breakpoint-max($name, $breakpoints);
+    @if $max {
+        @media (max-width: $max) {
+            @content;
         }
-        ; //600px
     }
-    @if $breakpoint==tab-port {
-        @media only screen and (max-width: 56.25em) {
-            @content
-        }
-        ; //900px
-    }
-    @if $breakpoint==tab-land {
-        @media only screen and (max-width: 75em) {
-            @content
-        }
-        ; //1200px
-    }
-    @if $breakpoint==big-desktop {
-        @media only screen and (min-width: 112.5em) {
-            @content
-        }
-        ; //1800
+    @else {
+        @content;
     }
 }
 
-@mixin container($container-width) {
-    max-width: $container-width;
-    @include response(phone) {
-        max-width: 90%;
+@mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+    $min: breakpoint-min($lower, $breakpoints);
+    $max: breakpoint-max($upper, $breakpoints);
+    @if $min !=null and $max !=null {
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
     }
-    @include response(tab-port) {
-        max-width: 90%;
+    @else if $max==null {
+        @include media-breakpoint-up($lower, $breakpoints) {
+            @content;
+        }
     }
-    margin: 0 auto;
-    &:not(:last-child) {
-        margin-bottom: $gutter-vertical;
+    @else if $min==null {
+        @include media-breakpoint-down($upper, $breakpoints) {
+            @content;
+        }
     }
-    @include clearfix;
+}
+
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+    $min: breakpoint-min($name, $breakpoints);
+    $next: breakpoint-next($name, $breakpoints);
+    $max: breakpoint-max($next);
+    @if $min !=null and $max !=null {
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    }
+    @else if $max==null {
+        @include media-breakpoint-up($name, $breakpoints) {
+            @content;
+        }
+    }
+    @else if $min==null {
+        @include media-breakpoint-down($next, $breakpoints) {
+            @content;
+        }
+    }
 }
