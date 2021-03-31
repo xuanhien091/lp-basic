@@ -4,15 +4,12 @@
 
 ## インストール package.json
 ```npm install```
----
 
 ## Run dev
 ```npm run dev```
----
 
 ## Build
 `npm run build`
----
 
 ## HTML操作
 > _modules
@@ -30,12 +27,13 @@
 ```
 
 ### 渡された変数を使い方
-*@@[変数]*
+
 ```
+@@[変数]
 @@title
 @@level
 ``` 
 
-### ビルドされたものは ./distに入ります。
+ビルドされたものは ./distに入ります。
 
 
