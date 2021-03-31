@@ -1,13 +1,13 @@
 # Web site base code
 **必須**
-`npm`
+```npm```
 
 ## インストール package.json
-`npm install`
+```npm install```
 ---
 
 ## Run dev
-`npm run dev`
+```npm run dev```
 ---
 
 ## Build
@@ -21,7 +21,7 @@
 ## JS, SASS操作
 > _src
 
-### Include HTML into html
+### Include html into html
 ```
 @@include('..layouts/header.html',{
     "title": "title",
