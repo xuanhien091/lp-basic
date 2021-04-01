@@ -21,6 +21,7 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { from: path.resolve(__dirname, '_src/app'), to: path.resolve(__dirname, 'dist/src') },
+                { from: path.resolve(__dirname, '_modules/pages/assets'), to: path.resolve(__dirname, 'dist/assets') },
             ],
         }),
         new FileIncludeWebpackPlugin(
