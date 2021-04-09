@@ -1,5 +1,8 @@
-// styles.scss
-.testing {
-    width: percentage(5/7);
-    height: percentage(5/7);
-}
+@import './_base/reset';
+@import './variable.scss';
+@import './effect.scss';
+@import './_base/grid';
+@import './function.scss';
+@import './mixins.scss';
+@import './layout.scss';
+@import './custom.scss';

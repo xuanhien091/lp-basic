@@ -1,0 +1,54 @@
+@keyframes fadeOut50P {
+  0% {
+    opacity: 1;
+    left: -100%; }
+  25% {
+    opacity: 1;
+    left: 0;
+    width: 100vw; }
+  75% {
+    opacity: 1;
+    left: 0;
+    width: 100vw; }
+  100% {
+    opacity: 1;
+    left: 100%;
+    width: 0vw; } }
+
+@keyframes faceIn50P {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 1; }
+  100% {
+    opacity: 1; } }
+
+@keyframes faceIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes fillUp {
+  to {
+    stroke-dasharray: 0 300; } }
+
+@keyframes hidden {
+  100% {
+    opacity: 0;
+    visibility: hidden; } }
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@keyframes scroll {
+  25% {
+    transform: translateY(100%); }
+  25.1% {
+    transform: translateY(-100%); }
+  50% {
+    transform: translateY(-100%); }
+  75% {
+    transform: translateY(0%); } }

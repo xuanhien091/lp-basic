@@ -1,0 +1,14 @@
+@keyframes scroll {
+    25% {
+        transform: translateY(100%);
+    }
+    25.1% {
+        transform: translateY(-100%);
+    }
+    50% {
+        transform: translateY(-100%);
+    }
+    75% {
+        transform: translateY(0%);
+    }
+}
