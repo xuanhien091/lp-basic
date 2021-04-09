@@ -1,0 +1,9 @@
+div {
+  left: 19;
+  right: 111; }
+
+@keyframes identifier {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
