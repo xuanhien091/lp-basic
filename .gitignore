@@ -350,3 +350,7 @@ MigrationBackup/
 .ionide/
 dist
 dist/
+
+.history/
+.vscode/
+public_html/

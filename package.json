@@ -46,7 +46,7 @@
   "scripts": {
     "gulp": "gulp",
     "build": "gulp build",
-    "stylelint": "stylelint 'sources/assets/sass/customs/'",
+    "stylelint": "stylelint 'sources/assets/sass/'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [

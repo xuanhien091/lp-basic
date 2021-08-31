@@ -1,0 +1,20 @@
+/* footer */
+.a {
+	width: 100px;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 10px;
+	font-weight: bold;
+
+	&:hover {
+		counter-reset: none;
+	}
+
+	&__a {
+		width: 100px;
+		height: 100px;	
+	}
+}
+
+.b {
+	color: alpha($color: #000000);
+}
