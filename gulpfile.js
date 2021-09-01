@@ -83,7 +83,7 @@ gulp.task("sass", function () {
   return gulp
     .src("sources/assets/sass/**/*.scss")
     .pipe(sass().on("error", sass.logError)) // Passes it through a gulp-sass, log errors to console
-    .pipe(gulp.dest("app/assets/css"))
+    .pipe(gulp.dest("sources/assets/css"))
     .pipe(
       browserSync.reload({
         stream: true,
@@ -119,11 +119,11 @@ gulp.task("uncss", function () {
 gulp.task("watch", function (done) {
   gulp.watch("sources/assets/sass/**/*.scss", gulp.task("sass"));
   gulp.watch("sources/assets/css/**/*.css", gulp.task("css"));
-  // gulp.watch('app/assets/css/**/*.css', gulp.task('auto-prefixer'));
   gulp.watch("sources/assets/fonts/*", gulp.task("fonts"));
   gulp.watch("sources/assets/images/*", gulp.task("images"));
   gulp.watch("sources/assets/js/**/*.js", gulp.task("js"));
   gulp.watch("sources/modules/**/**/*.html", gulp.task("file-include"));
+  gulp.watch("sources/modules/**/**/*.html", gulp.task("html"));
   done();
 });
 
@@ -148,7 +148,9 @@ gulp.task("images", function () {
 });
 
 gulp.task("fonts", function () {
-  return gulp.src("sources/assets/fonts/**/*").pipe(gulp.dest("public_html/fonts"));
+  return gulp
+    .src("sources/assets/fonts/**/*")
+    .pipe(gulp.dest("public_html/fonts"));
 });
 
 gulp.task("clean:public_html", function (done) {
@@ -166,32 +168,18 @@ gulp.task("cache:clear", function (callback) {
 
 gulp.task("html", function () {
   return gulp
-    .src("sources/modules/components/*.html")
+    .src("sources/modules/components/**/*.html")
     .pipe(
       htmlhint({
+        "doctype-first": false,
         "tagname-lowercase": true,
-        "attr-lowercase": true,
-        "attr-value-double-quotes": true,
-        "attr-value-not-empty": false,
         "attr-no-duplication": true,
-        "doctype-first": true,
-        "tag-pair": true,
-        "empty-tag-not-self-closed": true,
-        "spec-char-escape": true,
-        "id-unique": true,
-        "src-not-empty": true,
-        "title-require": true,
+        "attr-value-double-quotes": true,
         "alt-require": true,
-        "doctype-html5": true,
-        "id-class-value": "dash",
-        "style-disabled": false,
-        "inline-style-disabled": false,
-        "inline-script-disabled": false,
-        "space-tab-mixed-disabled": "space",
-        "id-class-ad-disabled": false,
-        "href-abs-or-rel": false,
-        "attr-unsafe-chars": true,
-        "head-script-disabled": true,
+        "id-unique": true,
+        "id-class-value": false,
+        "src-not-empty": true,
+        "inline-style-disabled": true
       })
     )
     .pipe(htmlhint.reporter());
