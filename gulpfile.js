@@ -1,22 +1,25 @@
 var gulp = require("gulp");
 var sass = require("gulp-sass");
+var minCss = require("gulp-minify-css");
+var rename = require("gulp-rename");
+
 var uglify = require("gulp-uglify");
 var gulpIf = require("gulp-if");
-var cssnano = require("gulp-cssnano");
+
 var imagemin = require("gulp-imagemin");
 var del = require("del");
 var cache = require("gulp-cache");
 var uglify = require("gulp-uglify");
-var rename = require("gulp-rename");
+
 var plumber = require("gulp-plumber");
 var concat = require("gulp-concat");
 var minimist = require("minimist");
 var sourcemaps = require("gulp-sourcemaps");
 var browserSync = require("browser-sync").create();
 var stripDebug = require("gulp-strip-debug");
-var cssmin = require("gulp-cssmin");
+
 var fileInclude = require("gulp-file-include");
-var uncss = require("gulp-uncss");
+
 var autoprefixer = require("gulp-autoprefixer");
 var babel = require("gulp-babel");
 var htmlhint = require("gulp-htmlhint");
@@ -79,46 +82,23 @@ gulp.task("js", function (done) {
   done();
 });
 
-gulp.task("sass", function () {
+gulp.task("build-css", function () {
   return gulp
     .src("sources/assets/sass/**/*.scss")
-    .pipe(sass().on("error", sass.logError)) // Passes it through a gulp-sass, log errors to console
-    .pipe(gulp.dest("sources/assets/css"))
     .pipe(
-      browserSync.reload({
-        stream: true,
-      })
-    );
-});
-
-gulp.task("css", function (done) {
-  gulp
-    .src("sources/assets/css/**/*.css")
-    .pipe(gulpIf(isWatch, plumber())) // watchタスクの場合、エラーが発生しても無視
-    .pipe(gulpIf(!isProduction, sourcemaps.init())) // 本番以外はソースマップ初期化
-    .pipe(concat("all.css"))
-    .pipe(autoprefixer())
-    .pipe(cssmin())
-    .pipe(rename("all.min.css")) // all-min.jsにリネーム
-    .pipe(gulpIf(!isProduction, sourcemaps.write("./"))) // 本番以外はソースマップ出力
-    .pipe(gulp.dest("public_html/css/"));
-  done();
-});
-
-gulp.task("uncss", function () {
-  return gulp
-    .src("public_html/css/**/*.css")
-    .pipe(
-      uncss({
-        html: ["public_html/**/*.html"],
-      })
+      sass({
+        outputStyle: "expanded",
+      }).on("error", sass.logError)
     )
+    .pipe(autoprefixer())
+    .pipe(gulp.dest("public_html/css/"))
+    .pipe(minCss())
+    .pipe(rename({ extname: ".min.css" }))
     .pipe(gulp.dest("public_html/css/"));
 });
 
 gulp.task("watch", function (done) {
-  gulp.watch("sources/assets/sass/**/*.scss", gulp.task("sass"));
-  gulp.watch("sources/assets/css/**/*.css", gulp.task("css"));
+  gulp.watch("sources/assets/sass/**/*.scss", gulp.task("build-css"));
   gulp.watch("sources/assets/fonts/*", gulp.task("fonts"));
   gulp.watch("sources/assets/images/*", gulp.task("images"));
   gulp.watch("sources/assets/js/**/*.js", gulp.task("js"));
@@ -135,7 +115,6 @@ gulp.task("images", function () {
   return (
     gulp
       .src("sources/assets/images/**/*.+(png|jpg|gif|svg)")
-      // Caching images that ran through imagemin
       .pipe(
         cache(
           imagemin({
@@ -179,7 +158,7 @@ gulp.task("html", function () {
         "id-unique": true,
         "id-class-value": false,
         "src-not-empty": true,
-        "inline-style-disabled": true
+        "inline-style-disabled": true,
       })
     )
     .pipe(htmlhint.reporter());
@@ -191,8 +170,7 @@ gulp.task(
   "default",
   gulp.series(
     "clean:public_html",
-    "sass",
-    "css",
+    "build-css",
     "js",
     "file-include",
     "images",
@@ -210,13 +188,11 @@ gulp.task(
   "build",
   gulp.series(
     "clean:public_html",
-    "sass",
-    "css",
+    "build-css",
     "js",
     "file-include",
     "images",
     "fonts",
-    "uncss",
     function (done) {
       done();
     }
