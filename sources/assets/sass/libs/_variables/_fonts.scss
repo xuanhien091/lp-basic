@@ -1,14 +1,15 @@
-// $font-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-// $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
-// $font-family-base:            var(--#{$variable-prefix}font-sans-serif) !default;
-// $font-family-code:            var(--#{$variable-prefix}font-monospace) !default;
-$font-size-root: null !default;
-$font-size-base: 1px !default; // Assumes the browser default, typically `16px`
-$font-size-sm: $font-size-base * 0.875 !default;
-$font-size-lg: $font-size-base * 1.25 !default;
+// Font size
+$font-xxs: 0.625rem; // 10px
+$font-xs: 0.75rem; // 12px
+$font-sm: 0.875rem; // 14px
+$font-md: 1rem; // 16px
+$font-h6: 1.125rem; // 18px
+$font-h5: 1.25rem; // 20px
+$font-h4: 1.5rem; // 24px
+$font-h3: 1.75rem; // 28px
+$font-h2: 2.5rem; // 40px
 
-$font-weight-lighter: lighter !default;
-$font-weight-light: 300 !default;
-$font-weight-normal: 400 !default;
-$font-weight-bold: 700 !default;
-$font-weight-bolder: bolder !default;
+// Font weight
+$weight-normal: 400;
+$weight-medium: 500;
+$weight-bold: 700;

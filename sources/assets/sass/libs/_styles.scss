@@ -1,5 +1,4 @@
-@import './base';
-@import './variable';
-@import './effect';
-@import './function';
-@import './mixins';
+@use './base';
+@use './variable';
+@use './function';
+@use './mixins';

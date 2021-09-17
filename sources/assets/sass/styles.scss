@@ -1,7 +1,5 @@
-@import './libs/styles.scss';
-@import './components/header';
-@import './components/footer';
+@forward  './components/header';
+@forward './components/footer';
 
-/* custom */
-@import './pages/home/styles';
-@import './pages/about/styles';
+/* pages */
+@use  './libs/function';
