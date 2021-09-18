@@ -1,0 +1,36 @@
+@use 'variables' as *;
+
+@mixin text($font-size, $line-height, $font-weight, $color, $font: $font-family) {
+  color: $color;
+  font-family: $font;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+}
+
+@mixin line-clamp($count: 3) {
+  // 引数が数値以外だったらエラーを返す
+  @if type-of($count) != 'number' {
+    @error 'line-clampの引数は必ず数値で指定してください';
+  }
+
+  @if $count == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $count;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/*
+* Display flex
+*/
+@mixin flex ($align-items, $justify-content) {
+  display: flex;
+  align-items: $align-items;
+  justify-content: $justify-content;
+}

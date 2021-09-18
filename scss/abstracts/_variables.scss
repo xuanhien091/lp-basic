@@ -1,0 +1,65 @@
+:root {
+  --color-blue: #5eb8ff;
+  --color-green: #4298b5;
+  --color-black: #222;
+  --color-grey: #707070;
+}
+
+$font-family: 'Noto Sans JP', sans-serif;
+
+$color-blue: var(--color-blue);
+$color-green: var(--color-green);
+$color-black: var(--color-black);
+$color-grey: var(--color-grey);
+
+$font-size-base: 1rem !default; // Assumes the browser default, typically `10px`
+$w112-font-size: $font-size-base * 11.2 !default;
+$w100-font-size: $font-size-base * 10 !default;
+$w86-font-size: $font-size-base * 8.6 !default;
+$w83-font-size: $font-size-base * 8.3 !default;
+$w70-font-size: $font-size-base * 7 !default;
+$w62-font-size: $font-size-base * 6.2 !default;
+$w60-font-size: $font-size-base * 6 !default;
+$w51-font-size: $font-size-base * 5.1 !default;
+$w51-font-size: $font-size-base * 5.1 !default;
+$w50-font-size: $font-size-base * 5 !default;
+$w49-font-size: $font-size-base * 4.9 !default;
+$w43-font-size: $font-size-base * 4.3 !default;
+$w40-font-size: $font-size-base * 4 !default;
+$w39-font-size: $font-size-base * 3.9 !default;
+$w38-font-size: $font-size-base * 3.8 !default;
+$w34-font-size: $font-size-base * 3.4 !default;
+$w32-font-size: $font-size-base * 3.2 !default;
+$w31-font-size: $font-size-base * 3 !default;
+$w30-font-size: $font-size-base * 3 !default;
+$w29-font-size: $font-size-base * 2.9 !default;
+$w28-font-size: $font-size-base * 2.8 !default;
+$w26-font-size: $font-size-base * 2.6 !default;
+$w24-font-size: $font-size-base * 2.2 !default;
+$w22-font-size: $font-size-base * 2.2 !default;
+$w20-font-size: $font-size-base * 2 !default;
+$w18-font-size: $font-size-base * 1.8 !default;
+$w16-font-size: $font-size-base * 1.6 !default;
+$w14-font-size: $font-size-base * 1.4 !default;
+$w12-font-size: $font-size-base * 1.2 !default;
+// Mobile
+$m70-font-size: $font-size-base * 7 !default;
+$m60-font-size: $font-size-base * 6 !default;
+$m28-font-size: $font-size-base * 2.8 !default;
+$m26-font-size: $font-size-base * 2.6 !default;
+$m22-font-size: $font-size-base * 2.2 !default;
+$m20-font-size: $font-size-base * 2 !default;
+$m18-font-size: $font-size-base * 1.8 !default;
+$m16-font-size: $font-size-base * 1.6 !default;
+$m12-font-size: $font-size-base * 1.2 !default;
+// font weight
+$font-weight-thin: 100 !default;
+$font-weight-extra-light: 200 !default;
+$font-weight-light: 300 !default;
+$font-weight-regular: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-semi-bold: 600 !default;
+$font-weight-bold: 700 !default;
+$font-weight-extra-bold: 800 !default;
+$font-weight-black: 900 !default;
