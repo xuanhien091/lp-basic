@@ -31,7 +31,6 @@
     "no-empty-first-line": true,
     "no-empty-source": true,
     "no-extra-semicolons": true,
-    "no-invalid-position-at-import-rule": true,
     "number-max-precision": 3,
     "number-no-trailing-zeros": true,
     "property-case": "lower",
@@ -47,7 +46,6 @@
     "selector-pseudo-class-case": "lower",
     "selector-type-case": "lower",
     "shorthand-property-no-redundant-values": true,
-    "string-quotes": "single",
     "unit-no-unknown": true,
     "value-keyword-case": "lower",
     "selector-class-pattern": [
