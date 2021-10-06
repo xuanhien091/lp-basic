@@ -2,6 +2,9 @@
 ```javascript
 npm install
 ```
+## Extensions
+stylelint
+
 ## Gulpのタスクを実行する
 ```javascript
 gulp
