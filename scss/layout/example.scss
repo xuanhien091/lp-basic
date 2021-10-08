@@ -1,18 +1,26 @@
-@use '../abstracts/base' as *;
+@use "../abstracts/base" as *;
 
 .example {
-	margin: 10px;
-	@include text($m20-font-size, 120%, $font-weight-regular, $color-green, 'font-name');
-	
-	@include responsive(md) {
-		@include text($m20-font-size, 150%, $font-weight-light, $color-green);
-	}
+  margin: 10px;
 
-	@include responsive(xl) {
-		font-size: $m20-font-size;
-	}
+  @include text(
+    $m20-font-size,
+    120%,
+    $font-weight-regular,
+    $color-green,
+    "font-name"
+  );
+
+  @include responsive(md) {
+    @include text($m20-font-size, 150%, $font-weight-light, $color-green);
+  }
+
+  @include responsive(xl) {
+    width: calc(100px - 20px);
+    font-size: $m20-font-size;
+  }
 }
 
 .text {
-	@include line-clamp(4);
+  @include line-clamp(4);
 }
