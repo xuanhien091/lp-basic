@@ -1,3 +1,6 @@
-export function a() {
-    console.log('a');
-}
+import SmoothScroll from "smooth-scroll";
+
+var scroll = new SmoothScroll('a[href*="#"]', {
+  speed: 500,
+  speedAsDuration: true,
+});
