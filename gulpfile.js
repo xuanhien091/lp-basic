@@ -220,7 +220,6 @@ gulp.task(
     "clean:dest",
     "sass",
     "webpack",
-    "js",
     "file-include",
     "images",
     // "fonts", // TODO Uncomment when use
