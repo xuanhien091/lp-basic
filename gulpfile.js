@@ -1,25 +1,21 @@
-var gulp = require("gulp");
+const gulp = require("gulp");
 const sass = require("gulp-sass");
-var rename = require("gulp-rename");
-var uglify = require("gulp-uglify");
-var imagemin = require("gulp-imagemin");
-var del = require("del");
-var cache = require("gulp-cache");
-var uglify = require("gulp-uglify");
-var concat = require("gulp-concat");
-var minimist = require("minimist");
-var browserSync = require("browser-sync").create();
-var fileInclude = require("gulp-file-include");
-var htmlhint = require("gulp-htmlhint");
-const fibers = require("fibers");
+const rename = require("gulp-rename");
+const imagemin = require("gulp-imagemin");
+const cache = require("gulp-cache");
+const uglify = require("gulp-uglify");
+const concat = require("gulp-concat");
+const fileInclude = require("gulp-file-include");
+const htmlhint = require("gulp-htmlhint");
 const postcss = require("gulp-postcss");
-const webpack = require("webpack-stream");
-sass.compiler = require("sass");
+const cleanCSS = require("gulp-clean-css");
 
-var options = minimist(process.argv.slice(2)); // コマンドライン・オプション読み込み
-var isProduction = options.env == "production"; // --env=productionと指定されたらリリース用
-var parentTaskName = process.argv[2] || "default"; // 指定されたタスク名
-var isWatch = parentTaskName == "watch"; // watchタスクで起動されたか
+const del = require("del");
+const browserSync = require("browser-sync").create();
+const fibers = require("fibers");
+const webpack = require("webpack-stream");
+
+sass.compiler = require("sass");
 
 const paths = {
   html: {
@@ -49,7 +45,9 @@ const paths = {
   //   dest: 'dest/fonts'
   // }
 };
-
+//---------------------------------------------------
+// BUILD SERVER
+//---------------------------------------------------
 gulp.task("build-server", function (done) {
   browserSync.init({
     files: ["home.html"],
@@ -98,13 +96,15 @@ gulp.task("js", function (done) {
   done();
 });
 
+//---------------------------------------------------
+// WEBPACK
+//---------------------------------------------------
 gulp.task("webpack", () => {
   return gulp
     .src("js/")
     .pipe(webpack(require("./webpack.config.js")))
     .pipe(gulp.dest(paths.js.dest));
 });
-
 //---------------------------------------------------
 // CSS
 //---------------------------------------------------
@@ -126,6 +126,7 @@ gulp.task("sass", (done) => {
         require("css-mqpacker"),
       ])
     )
+    .pipe(cleanCSS())
     .pipe(
       rename({
         extname: ".min.css",
@@ -182,7 +183,9 @@ gulp.task("html", function () {
     )
     .pipe(htmlhint.reporter());
 });
-
+//---------------------------------------------------
+// WATCH FILES
+//---------------------------------------------------
 gulp.task("watch-files", function (done) {
   gulp.watch(paths.css.reloadSrc, gulp.task("sass"));
   // gulp.watch(paths.fonts.src, gulp.task("fonts")); // TODO Uncomment when use
@@ -193,20 +196,27 @@ gulp.task("watch-files", function (done) {
   gulp.watch(paths.components.src, gulp.task("html"));
 
   gulp.watch("dest/**/*.*", gulp.task("browser-reload"));
+
   done();
 });
-
+//---------------------------------------------------
+// BROWSER RELOAD
+//---------------------------------------------------
 gulp.task("browser-reload", function (done) {
   browserSync.reload();
   done();
   console.log("Browser reload completed");
 });
-
+//---------------------------------------------------
+// CLEAN DEST
+//---------------------------------------------------
 gulp.task("clean:dest", function (done) {
   del.sync(["dest/**/*", "!dest/images", "!dest/images/**/*"]);
   done();
 });
-
+//---------------------------------------------------
+// CACHE DEST
+//---------------------------------------------------
 gulp.task("cache:clear", function (callback) {
   return cache.clearAll(callback);
 });
