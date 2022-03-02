@@ -45,5 +45,15 @@
 		"mydirectory",
 		"pnpm"
 	],
-	"editor.formatOnSave": true
+	"editor.formatOnSave": true,
+	"[html]": {
+    "editor.suggest.insertMode": "replace",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+	"[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.suggest.insertMode": "replace",
+    "editor.formatOnSave": true
+  },
 }

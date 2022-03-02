@@ -50,7 +50,7 @@ const paths = {
 //---------------------------------------------------
 gulp.task("build-server", function (done) {
   browserSync.init({
-    files: ["home.html"],
+    files: ["index.html"],
     server: {
       proxy: "localhost:3001",
       baseDir: "./dest",
@@ -226,7 +226,6 @@ gulp.task("cache:clear", function (callback) {
 gulp.task(
   "default",
   gulp.series(
-    "build-server",
     "clean:dest",
     "sass",
     "webpack",
@@ -234,6 +233,7 @@ gulp.task(
     "images",
     // "fonts", // TODO Uncomment when use
     "watch-files",
+    "build-server",
     function (done) {
       done();
     }
