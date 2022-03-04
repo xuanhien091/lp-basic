@@ -56,7 +56,7 @@
   "scripts": {
     "gulp": "gulp",
     "build": "gulp build",
-    "stylelint": "stylelint 'scss/layout/'",
+    "stylelint": "stylelint --fix 'scss/layout/'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [

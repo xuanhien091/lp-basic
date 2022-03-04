@@ -3,13 +3,7 @@
 .example {
   margin: 10px;
 
-  @include text(
-    $m20-font-size,
-    120%,
-    $font-weight-regular,
-    $color-green,
-    "font-name"
-  );
+  @include text($m20-font-size, 120%, $font-weight-regular, $color-green, "font-name");
 
   @include responsive(md) {
     @include text($m20-font-size, 150%, $font-weight-light, $color-green);
@@ -17,6 +11,7 @@
 
   @include responsive(xl) {
     width: calc(100px - 20px);
+    height: 100px;
     font-size: $m20-font-size;
   }
 }
