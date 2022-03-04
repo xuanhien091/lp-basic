@@ -6,8 +6,19 @@ npm install
 
 ## Extensions
 
+- stylelint
+- [SCSS Formatter](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter#:~:text=Default%20keyboard%20shortcuts%20for%20Format,Windows%3A%20Shift%2BAlt%2BF)
+
+## Run
+
+```command line
+npm run gulp
 ```
-stylelint
+
+## Style properties order auto fix
+
+```bash
+npm run stylelint
 ```
 
 ## Rules/規則
@@ -16,12 +27,6 @@ stylelint
 - [Javascript convention](/docs/rules/js_convention.md)
 - [css convention](/docs/rules/scss_convention.md)
 - [order convention](/docs/rules/order_convention.md)
-
-## Gulp command line
-
-```command line
-gulp
-```
 
 ## Folder for deploy to hosting
 
