@@ -1,16 +1,18 @@
 :root {
-  --color-blue: #5eb8ff;
-  --color-green: #4298b5;
-  --color-black: #222;
-  --color-grey: #707070;
+	--color-blue: #5eb8ff;
+	--color-green: #4298b5;
+	--color-black: #222222;
+	--color-grey: #707070;
+	--color-white: #ffffff;
 }
 
-$font-family: 'Noto Sans JP', sans-serif;
+$font-family: "Noto Sans JP", sans-serif;
 
 $color-blue: var(--color-blue);
 $color-green: var(--color-green);
 $color-black: var(--color-black);
 $color-grey: var(--color-grey);
+$color-white: var(--color-white);
 
 $font-size-base: 1rem !default; // Assumes the browser default, typically `10px`
 $w112-font-size: $font-size-base * 11.2 !default;
