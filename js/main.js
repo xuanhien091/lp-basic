@@ -8,15 +8,16 @@ var scroll = new SmoothScroll('a[href*="#"]', {
 // navigation menu
 const hamburgerMenu = document.querySelector(".hamburger-menu");
 const navMenu = document.querySelector(".nav-menu");
-const navClose = document.querySelector(".nav-menu__text--close");
+const navClose = document.querySelector(".nav-menu__text");
+
+const navClickHandler = () => {
+  navMenu.classList.toggle("slide-in");
+};
 
 hamburgerMenu.addEventListener("click", () => {
-  if (navMenu.classList.contains("slide-in") !== true) {
-    navMenu.classList.add("slide-in");
-  }
-  navMenu.classList.replace("slide-out", "slide-in");
+  navClickHandler();
 });
 
 navClose.addEventListener("click", () => {
-  navMenu.classList.replace("slide-in", "slide-out");
+  navClickHandler();
 });

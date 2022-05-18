@@ -1,31 +1,27 @@
 @use "../abstracts/base" as *;
 
 html {
-	font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-	background-color: $color-white;
+  background-color: $color-white;
 }
 
 img {
-	width: 100%;
-	height: auto;
+  width: 100%;
+  height: auto;
 }
 
 a {
-	color: $color-white;
-	text-decoration: none;
+  color: $color-white;
+  text-decoration: none;
 
-	&:active {
-		color: $color-white;
-	}
+  &:active {
+    color: $color-white;
+  }
 
-	&:focus {
-		color: $color-white;
-	}
-}
-
-.hide {
-	display: none;
+  &:focus {
+    color: $color-white;
+  }
 }
