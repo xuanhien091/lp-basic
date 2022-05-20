@@ -48,14 +48,28 @@
   color: $color-white;
   font-size: $w12-font-size;
 
+	@include responsive(sm){
+		width: 100%;
+		right: -100%;
+		font-size: $m20-font-size;
+	}
+
   &__text {
     width: 4rem;
     margin: 1rem 0 0 auto;
     cursor: pointer;
+
+		@include responsive(sm){
+			width: 7rem;
+		}
   }
 
   &__contents {
     padding: 3rem 5rem 0;
+
+		@include responsive(sm){
+			padding: 10rem 12rem 0;
+		}
   }
 
   &__item {
@@ -70,4 +84,8 @@
 .slide-in {
   right: 0;
   transition: all 0.6s;
+
+	@include responsive(sm){
+		right: 0;
+	}
 }
