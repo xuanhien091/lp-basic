@@ -1,1 +1,91 @@
-/* header */
+@use "../abstracts/base" as *;
+
+.header {
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.hamburger-menu {
+  width: 4.5rem;
+  margin: 0 0 0 auto;
+  padding: 0.8rem 0;
+  text-align: -webkit-right;
+  cursor: pointer;
+
+  &__button {
+    margin: 0.3rem 0;
+  }
+
+  &__border {
+    display: block;
+    height: 0.2rem;
+    background-color: $color-black;
+
+    &:nth-of-type(1) {
+      width: 100%;
+      margin-bottom: 0.8rem;
+    }
+
+    &:nth-of-type(2) {
+      width: 65%;
+      margin-bottom: 0.8rem;
+    }
+
+    &:nth-of-type(3) {
+      width: 33%;
+    }
+  }
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  right: -19rem;
+  width: 19rem;
+  height: 100%;
+  transition: all 0.6s;
+  background-color: $color-grey;
+  color: $color-white;
+  font-size: $w12-font-size;
+
+  @include responsive(sm) {
+    right: -100%;
+    width: 100%;
+    font-size: $m20-font-size;
+  }
+
+  &__text {
+    width: 4rem;
+    margin: 1rem 0 0 auto;
+    cursor: pointer;
+
+    @include responsive(sm) {
+      width: 7rem;
+    }
+  }
+
+  &__contents {
+    padding: 3rem 5rem 0;
+
+    @include responsive(sm) {
+      padding: 10rem 12rem 0;
+    }
+  }
+
+  &__item {
+    margin-top: 2rem;
+
+    li {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.slide-in {
+  right: 0;
+  transition: all 0.6s;
+
+  @include responsive(sm) {
+    right: 0;
+  }
+}
