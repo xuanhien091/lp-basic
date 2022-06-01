@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 @mixin text($font-size, $line-height, $font-weight, $color, $font: $font-family) {
   color: $color;
@@ -10,7 +10,7 @@
 
 @mixin line-clamp($count: 3) {
   // 引数が数値以外だったらエラーを返す
-  @if type-of($count) != 'number' {
+  @if type-of($count) != "number" {
     @error 'line-clampの引数は必ず数値で指定してください';
   }
 
@@ -29,7 +29,7 @@
 /*
 * Display flex
 */
-@mixin flex ($align-items, $justify-content) {
+@mixin flex($align-items, $justify-content) {
   display: flex;
   align-items: $align-items;
   justify-content: $justify-content;
