@@ -1,4 +1,4 @@
-@use '../abstracts/breakpoints' as *;
+@use "../abstracts/breakpoints" as *;
 
 @mixin responsive($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
