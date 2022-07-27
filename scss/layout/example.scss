@@ -19,3 +19,18 @@
 .text {
   @include line-clamp(4);
 }
+
+.content {
+  background-color: yellow;
+  display: flex;
+  gap: 120px;
+
+  .item {
+    background-color: red;
+    flex: 1;
+
+    p {
+      writing-mode: vertical-lr;
+    }
+  }
+}
