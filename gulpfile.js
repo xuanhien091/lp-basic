@@ -9,7 +9,6 @@ const fileInclude = require("gulp-file-include");
 const htmlhint = require("gulp-htmlhint");
 const postcss = require("gulp-postcss");
 const cleanCSS = require("gulp-clean-css");
-
 const del = require("del");
 const browserSync = require("browser-sync").create();
 const fibers = require("fibers");
