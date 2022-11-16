@@ -1,7 +1,6 @@
 const gulp = require("gulp");
 const sass = require("gulp-sass");
 const rename = require("gulp-rename");
-const imagemin = require("gulp-imagemin");
 const cache = require("gulp-cache");
 const uglify = require("gulp-uglify");
 const concat = require("gulp-concat");
@@ -13,6 +12,9 @@ const del = require("del");
 const browserSync = require("browser-sync").create();
 const fibers = require("fibers");
 const webpack = require("webpack-stream");
+var uncss = require("gulp-uncss");
+var nano = require("gulp-cssnano");
+var $ = require("gulp-load-plugins")();
 
 sass.compiler = require("sass");
 
@@ -35,8 +37,12 @@ const paths = {
     dest: "dest/js/",
   },
   images: {
-    src: "images/**/*.+(png|jpg|gif|svg)",
+    src: "images/**/*.+(png|jpg|gif|svg|webp)",
     dest: "dest/images",
+  },
+  htaccess: {
+    src: ".htaccess",
+    dest: "dest",
   },
   // TODO: Uncomment when use
   // fonts: {
@@ -86,12 +92,7 @@ gulp.task("file-include", function (done) {
 // JAVASCRIPT
 //---------------------------------------------------
 gulp.task("js", function (done) {
-  gulp
-    .src(paths.js.src)
-    .pipe(concat("all.js"))
-    .pipe(uglify())
-    .pipe(rename("all.min.js"))
-    .pipe(gulp.dest(paths.js.dest));
+  gulp.src(paths.js.src).pipe(concat("all.js")).pipe(uglify()).pipe(rename("all.min.js")).pipe(gulp.dest(paths.js.dest));
   done();
 });
 
@@ -116,6 +117,7 @@ gulp.task("sass", (done) => {
         style: "expanded",
       }).on("error", sass.logError)
     )
+    .pipe(concat("styles.css"))
     .pipe(
       postcss([
         require("autoprefixer")({
@@ -125,7 +127,13 @@ gulp.task("sass", (done) => {
         require("css-mqpacker"),
       ])
     )
-    .pipe(cleanCSS())
+    .pipe(
+      uncss({
+        html: ["dest/*.html", "dest/**/*.html", "posts/**/*.html", "http://example.com"],
+      })
+    )
+    .pipe(nano())
+    .pipe(cleanCSS({ level: 2, removeDuplicateRules: "true" }))
     .pipe(
       rename({
         extname: ".min.css",
@@ -141,16 +149,54 @@ gulp.task("sass", (done) => {
 //---------------------------------------------------
 gulp.task("images", function () {
   return gulp
-    .src(paths.images.src)
+    .src("images/*.{jpg,png,webp}") // svgファイルがサポートされない
     .pipe(
-      cache(
-        imagemin({
-          interlaced: true,
-        })
+      $.responsive(
+        {
+          "*": [
+            { width: "60%", rename: { suffix: "@3x" } },
+            { width: "80%", rename: { suffix: "@4x" } },
+            { width: "100%", rename: { suffix: "" } },
+          ],
+        },
+        {
+          quality: 90,
+          progressive: true,
+          compressionLevel: 6,
+          withMetadata: false,
+        }
       )
     )
     .pipe(gulp.dest(paths.images.dest));
 });
+gulp.task("images-svg", function () {
+  return gulp.src("images/*.svg").pipe(gulp.dest(paths.images.dest));
+});
+//---------------------------------------------------
+// the manifest file
+//---------------------------------------------------
+gulp.task("manifest", function () {
+  return gulp.src("manifest.json").pipe(gulp.dest("dest/"));
+});
+//---------------------------------------------------
+// HTACCESS
+//---------------------------------------------------
+gulp.task("htaccess", function () {
+  return gulp.src(paths.htaccess.src).pipe(gulp.dest(paths.htaccess.dest));
+});
+//---------------------------------------------------
+// UNCSS
+//---------------------------------------------------
+// gulp.task("uncss", function () {
+//   return gulp
+//     .src("scss/**/")
+//     .pipe(
+//       uncss({
+//         html: ["index.html", "posts/**/*.html", "http://example.com"],
+//       })
+//     )
+//     .pipe(gulp.dest("./out"));
+// });
 //---------------------------------------------------
 // TODO Uncomment when use (create font folder)
 // FONT
@@ -189,10 +235,12 @@ gulp.task("watch-files", function (done) {
   gulp.watch(paths.css.reloadSrc, gulp.task("sass"));
   // gulp.watch(paths.fonts.src, gulp.task("fonts")); // TODO Uncomment when use
   gulp.watch(paths.images.src, gulp.task("images"));
+  gulp.watch(paths.images.src, gulp.task("images-svg"));
   gulp.watch(paths.js.src, gulp.task("js"));
   gulp.watch(paths.components.src, gulp.task("file-include"));
   gulp.watch(paths.html.src, gulp.task("file-include"));
   gulp.watch(paths.components.src, gulp.task("html"));
+  gulp.watch(paths.htaccess.src, gulp.task("htaccess"));
 
   gulp.watch("dest/**/*.*", gulp.task("browser-reload"));
 
@@ -226,10 +274,13 @@ gulp.task(
   "default",
   gulp.series(
     "clean:dest",
-    "sass",
     "webpack",
     "file-include",
+    "sass",
     "images",
+    "images-svg",
+    "htaccess",
+    "manifest",
     // "fonts", // TODO Uncomment when use
     "watch-files",
     "build-server",

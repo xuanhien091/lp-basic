@@ -21,13 +21,13 @@
 }
 
 .content {
-  background-color: yellow;
   display: flex;
+  background-color: yellow;
   gap: 120px;
 
   .item {
-    background-color: red;
     flex: 1;
+    background-color: red;
 
     p {
       writing-mode: vertical-lr;

@@ -34,3 +34,15 @@
   align-items: $align-items;
   justify-content: $justify-content;
 }
+
+//pxをvwに変換するfunction
+@function _get_vw($size, $viewport: 375) {
+  $rate: calc(100 / $viewport);
+  @return $rate * $size * 1vw;
+}
+
+//フォント用のmixin
+@mixin font-vw($font_size: 10, $viewsize: 375) {
+  font-size: $font_size * 1px;
+  font-size: _get_vw($font_size, $viewsize);
+}
