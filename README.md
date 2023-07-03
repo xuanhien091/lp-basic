@@ -1,3 +1,10 @@
+##
+
+```javascript
+npm 6.14.13
+node v14.17.3
+```
+
 ## Install package
 
 ```javascript
