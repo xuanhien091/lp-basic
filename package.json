@@ -48,7 +48,11 @@
     "webpack-cli": "^4.10.0",
     "webpack-stream": "6.1.2",
     "gulp-sass": "5.1.0",
-    "node-sass": "9.0.0"
+    "node-sass": "9.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "5.0.1",
+    "stylelint": "13.13.1",
+    "stylelint-config-standard": "22.0.0"
   },
   "scripts": {
     "gulp": "gulp",
