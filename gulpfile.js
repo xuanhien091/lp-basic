@@ -1,5 +1,5 @@
 const gulp = require("gulp");
-const sass = require("gulp-sass");
+const sass = require("gulp-sass")(require("sass"));
 const rename = require("gulp-rename");
 const cache = require("gulp-cache");
 const uglify = require("gulp-uglify");
@@ -12,7 +12,7 @@ const del = require("del");
 const browserSync = require("browser-sync").create();
 const fibers = require("fibers");
 const webpack = require("webpack-stream");
-var uncss = require("gulp-uncss");
+// var uncss = require("gulp-uncss");
 var nano = require("gulp-cssnano");
 var $ = require("gulp-load-plugins")();
 
@@ -92,7 +92,12 @@ gulp.task("file-include", function (done) {
 // JAVASCRIPT
 //---------------------------------------------------
 gulp.task("js", function (done) {
-  gulp.src(paths.js.src).pipe(concat("all.js")).pipe(uglify()).pipe(rename("all.min.js")).pipe(gulp.dest(paths.js.dest));
+  gulp
+    .src(paths.js.src)
+    .pipe(concat("all.js"))
+    .pipe(uglify())
+    .pipe(rename("all.min.js"))
+    .pipe(gulp.dest(paths.js.dest));
   done();
 });
 
@@ -127,11 +132,16 @@ gulp.task("sass", (done) => {
         require("css-mqpacker"),
       ])
     )
-    .pipe(
-      uncss({
-        html: ["dest/*.html", "dest/**/*.html", "posts/**/*.html", "http://example.com"],
-      })
-    )
+    // .pipe(
+    //   uncss({
+    //     html: [
+    //       "dest/*.html",
+    //       "dest/**/*.html",
+    //       "posts/**/*.html",
+    //       "http://example.com",
+    //     ],
+    //   })
+    // )
     .pipe(nano())
     .pipe(cleanCSS({ level: 2, removeDuplicateRules: "true" }))
     .pipe(
@@ -147,28 +157,28 @@ gulp.task("sass", (done) => {
 //---------------------------------------------------
 // IMAGES
 //---------------------------------------------------
-gulp.task("images", function () {
-  return gulp
-    .src("images/*.{jpg,png,webp}") // svgファイルがサポートされない
-    .pipe(
-      $.responsive(
-        {
-          "*": [
-            { width: "60%", rename: { suffix: "@3x" } },
-            { width: "80%", rename: { suffix: "@4x" } },
-            { width: "100%", rename: { suffix: "" } },
-          ],
-        },
-        {
-          quality: 90,
-          progressive: true,
-          compressionLevel: 6,
-          withMetadata: false,
-        }
-      )
-    )
-    .pipe(gulp.dest(paths.images.dest));
-});
+// gulp.task("images", function () {
+//   return gulp
+//     .src("images/*.{jpg,png,webp}") // svgファイルがサポートされない
+//     .pipe(
+//       $.responsive(
+//         {
+//           "*": [
+//             { width: "60%", rename: { suffix: "@3x" } },
+//             { width: "80%", rename: { suffix: "@4x" } },
+//             { width: "100%", rename: { suffix: "" } },
+//           ],
+//         },
+//         {
+//           quality: 90,
+//           progressive: true,
+//           compressionLevel: 6,
+//           withMetadata: false,
+//         }
+//       )
+//     )
+//     .pipe(gulp.dest(paths.images.dest));
+// });
 gulp.task("images-svg", function () {
   return gulp.src("images/*.svg").pipe(gulp.dest(paths.images.dest));
 });
@@ -234,7 +244,7 @@ gulp.task("html", function () {
 gulp.task("watch-files", function (done) {
   gulp.watch(paths.css.reloadSrc, gulp.task("sass"));
   // gulp.watch(paths.fonts.src, gulp.task("fonts")); // TODO Uncomment when use
-  gulp.watch(paths.images.src, gulp.task("images"));
+  // gulp.watch(paths.images.src, gulp.task("images"));
   gulp.watch(paths.images.src, gulp.task("images-svg"));
   gulp.watch(paths.js.src, gulp.task("js"));
   gulp.watch(paths.components.src, gulp.task("file-include"));
@@ -277,7 +287,7 @@ gulp.task(
     "webpack",
     "file-include",
     "sass",
-    "images",
+    // "images",
     "images-svg",
     "htaccess",
     "manifest",
