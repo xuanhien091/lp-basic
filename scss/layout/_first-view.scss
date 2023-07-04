@@ -1,0 +1,24 @@
+@use "../abstracts/base" as *;
+
+.first-view {
+	background-image: url("/images/background.png");
+	height: 100vh;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	> .reg-form {
+		position: absolute;
+		right: 40px;
+		top: 50%;
+		transform: translateY(-50%);
+
+		@include responsive(sm) {
+			bottom: -120px;
+			top: unset;
+			transform: unset;
+			left: 0;
+			width: 100%;
+		}
+	}
+}
