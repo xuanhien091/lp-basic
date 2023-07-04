@@ -9,8 +9,8 @@ body {
 
 .reg-form {
 	display: inline-flex;
-	width: 330px;
 	flex-direction: column;
+	width: 330px;
 
 	#regForm {
 		padding: 20px;
@@ -22,24 +22,24 @@ body {
 			margin-bottom: 24px;
 
 			.step {
-				font-size: 18px;
-				color: #000000;
-				line-height: calc(22 / 18);
-				font-weight: 700;
-				background-color: #d9d9d9;
-				padding: 4px 0px;
 				display: inline-block;
 				width: 80px;
+				padding: 4px 0px;
+				background-color: #d9d9d9;
+				color: #000000;
+				font-size: 18px;
+				font-weight: 700;
+				line-height: calc(22 / 18);
 				text-align: center;
 				user-select: none;
 			}
 		}
 
 		h3 {
+			margin-bottom: 24px;
 			color: #000000;
 			font-size: 18px;
 			font-weight: 700;
-			margin-bottom: 24px;
 			text-align: center;
 			user-select: none;
 		}
@@ -70,11 +70,11 @@ body {
 	}
 
 	> h2 {
+		padding: 8px 56px;
 		background-color: #f49300;
 		color: #ffffff;
 		font-size: 18px;
 		font-weight: 700;
-		padding: 8px 56px;
 		user-select: none;
 
 		span {
@@ -88,68 +88,66 @@ body {
 		margin-bottom: 24px;
 
 		> label {
-			font-weight: 400;
-			font-size: 16px;
-			line-height: calc(24 / 16);
 			margin-bottom: 8px;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: calc(24 / 16);
 		}
 
 		.error {
+			display: none;
+			margin-top: 4px;
+			margin-bottom: unset;
 			color: #ee0000;
 			font-size: 14px;
 			font-weight: 400;
-			margin-bottom: unset;
-			margin-top: 4px;
-			display: none;
 		}
+
 		.invalid {
 			display: block;
 		}
 
 		> input {
-			font-weight: 400;
-			font-size: 16px;
-			line-height: calc(24 / 16);
-			padding: 12px;
-			height: 48px;
 			box-sizing: border-box;
+			height: 48px;
+			padding: 12px;
 			border: 1px #000000 solid;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: calc(24 / 16);
 		}
 
 		> select {
+			box-sizing: border-box;
+			height: 48px;
+			padding: 12px;
 			border: 1px #000000 solid;
+			background: transparent;
+			background-image: url("/images/arrow.svg");
+			background-repeat: no-repeat;
 			color: #000000;
 			font-size: 16px;
 			font-weight: 400;
 			line-height: calc(24 / 16);
-			padding: 12px;
-			height: 48px;
-			box-sizing: border-box;
 			-webkit-appearance: none;
 			-moz-appearance: none;
-			background: transparent;
-			background-image: url("/images/arrow.svg");
-			background-repeat: no-repeat;
 			background-position-x: 96%;
 			background-position-y: 20px;
 		}
 
 		> .phone-number {
 			display: flex;
-			justify-content: space-between;
 			align-items: center;
+			justify-content: space-between;
 
 			> input {
-				width: 86px;
-				font-size: 16px;
-				font-weight: 400;
-				// line-height: calc(24 / 16);
-				// padding: 12px 8px;
-				padding-left: 8px;
 				box-sizing: border-box;
 				width: 86px;
 				height: 48px;
+				padding-left: 8px;
 				border: 1px #000000 solid;
+				font-size: 16px;
+				font-weight: 400;
 			}
 
 			> span {
@@ -160,19 +158,19 @@ body {
 	}
 
 	.confirm-content {
-		border: 1px #7e7e7e solid;
-		padding: 16px;
 		height: 180px;
+		padding: 16px;
 		overflow: auto;
+		border: 1px #7e7e7e solid;
 
 		> .confirm-item {
 			margin-bottom: 24px;
 
 			p {
 				&:first-child {
+					margin-bottom: 8px;
 					font-size: 16px;
 					font-weight: 400;
-					margin-bottom: 8px;
 				}
 
 				&:last-child {
@@ -184,45 +182,44 @@ body {
 	}
 
 	#nextBtn {
-		background-color: #f49300;
-		margin-bottom: 8px;
 		position: relative;
+		margin-bottom: 8px;
+		background-color: #f49300;
 
 		&::after {
 			content: url("../../images/arrow-white.svg");
-			right: 16px;
 			position: absolute;
-			width: 8px;
 			top: 50%;
+			right: 16px;
+			width: 8px;
 			transform: translateY(calc(-50% + 2px));
 		}
 	}
 
 	#prevBtn {
-		background-color: #7e7e7e;
-
 		position: relative;
+		background-color: #7e7e7e;
 
 		&::before {
 			content: url("../../images/arrow-white.svg");
-			left: 16px;
 			position: absolute;
-			width: 8px;
 			top: 50%;
+			left: 16px;
+			width: 8px;
 			transform: translateY(-50%) rotate(180deg);
 		}
 	}
 }
 
 .btn {
-	font-size: 16px;
-	font-weight: 700;
-	color: #ffffff;
-	border: none;
 	width: 100%;
-	line-height: calc(24 / 16);
 	padding: 12px 0px;
 	transition: all 0.2 ease;
+	border: none;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: calc(24 / 16);
 
 	&:hover {
 		transition: all 0.2 ease;
@@ -231,6 +228,6 @@ body {
 }
 
 .active {
-	color: #ffffff !important;
 	background-color: #f49300 !important;
+	color: #ffffff !important;
 }

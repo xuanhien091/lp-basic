@@ -21,7 +21,7 @@
     "function-name-case": "lower",
     "max-empty-lines": 1,
     "max-nesting-depth": [
-      3,
+      5,
       {
         "ignoreAtRules": ["each", "media", "supports", "include"]
       }
